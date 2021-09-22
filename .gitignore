@@ -1,0 +1,12 @@
+*checkpoint.ipynb
+*.Rhistory
+
+*.pyc
+
+*Untitled
+*.csv
+
+*/.ipynb_checkpoints/
+
+
+*__pycache

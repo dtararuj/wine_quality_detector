@@ -7,8 +7,8 @@ import pickle
 app = Flask(__name__)
 
 #wczytuje nasz zapiklowany model i scaler
-model = pickle.load(open('model_final_xgb.pkl', 'rb'))
-scaler = pickle.load(open('scaler.pkl', 'rb'))
+model = pickle.load(open('modele/model_final_xgb.pkl', 'rb'))
+scaler = pickle.load(open('modele/scaler.pkl', 'rb'))
 
 #pobiera nasz template strony
 @app.route('/')
@@ -27,6 +27,7 @@ def predict():
 
     return render_template('index.html', prediction_text="Your wine is  {}".format(output).replace("['", "").replace("']",""))
 
+#tu chyba wymuszamy wpisanie danych
 @app.route('/results',methods=['POST'])
 def results():
 

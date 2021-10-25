@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
 #1. pobranie danych i preprocessing
-dane = pd.read_csv("winequality-red.csv",sep = ";")
+dane = pd.read_csv("dane/winequality-red.csv",sep = ";")
 # odrzucenie outlierow
 dane = dane[dane["total sulfur dioxide"]<250]
 #pogrupowanie ocen wina w ramach kilku grup

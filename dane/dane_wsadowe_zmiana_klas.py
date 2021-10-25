@@ -3,9 +3,14 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+import tensorflow as tf
+from keras import layers
+from tensorflow.keras import layers, callbacks
+from sklearn.preprocessing import OneHotEncoder
+from imblearn.over_sampling import SMOTE
 
 #1. pobranie danych i preprocessing
-dane = pd.read_csv("winequality-red.csv",sep = ";")
+dane = pd.read_csv("dane/winequality-red.csv",sep = ";")
 # odrzucenie outlierow
 dane = dane[dane["total sulfur dioxide"]<250]
 #pogrupowanie ocen wina w ramach dwoch grup
@@ -50,5 +55,37 @@ lista_zmiennych = ["X","Y","X_train_all", "X_test", "Y_train_all", "Y_test","X_t
 
 print("lista zmiennych: \n" ,lista_zmiennych)
 
+
+#dopiszmy jeszcze dane potrzebne do odpalenia sieci neuronowej
+
+# skorzystajmy z dostepnej metody z dedykowanej biblioteki
+smote = SMOTE(sampling_strategy = 'minority',random_state=1)
+x_sm, y_sm = smote.fit_resample(X,Y)
+
+
+# podzielmy jeszcze raz zbior na zbior treningowy i testowy
+X_train1, X_test1, Y_train1,Y_test1 = train_test_split(x_sm,y_sm, test_size = 0.2)
+
+
+
+# Przetworzmy dane do formatu wejsciowego do modelu
+
+X_train_array_d = X_train1.values
+X_test_array_d = X_test1.values
+
+
+# transformujemy Y_test_duplicated i Y_test_duplicated
+
+Y_train_d = np.array(Y_train1)
+Y_test_d = np.array(Y_test1)
+
+Y_test_d = OneHotEncoder().fit_transform(Y_test_d.reshape(-1,1)).toarray()
+# zmienmy jeszcze format
+Y_test_d = Y_test_d.astype(np.float32)
+
+# transformujemy y_train
+Y_train_d = OneHotEncoder().fit_transform(Y_train_d.reshape(-1,1)).toarray()
+# zmienmy jeszcze format
+Y_train_d = Y_train_d.astype(np.float32)
 
      

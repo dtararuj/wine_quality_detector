@@ -1,5 +1,5 @@
 import numpy as np
-import tensorflow as tf
+from tensorflow.keras import models
 #from sklearn.preprocessing import StandardScaler
 from flask import Flask, request, jsonify, render_template
 #import pickle
@@ -8,7 +8,7 @@ from flask import Flask, request, jsonify, render_template
 app = Flask(__name__)
 
 #wczytuje nasz zapisany model
-model = tf.keras.models.load_model(
+model = load_model(
     "modele/model_nn4.h5")
 
 #pobiera nasz template strony

@@ -8,7 +8,7 @@ from flask import Flask, request, jsonify, render_template
 app = Flask(__name__)
 
 #wczytuje nasz zapisany model
-model = load_model(
+model = models.load_model(
     "modele/model_nn4.h5")
 
 #pobiera nasz template strony
